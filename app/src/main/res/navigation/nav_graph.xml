@@ -41,6 +41,7 @@
         tools:layout="@layout/main_fragment" >
         <action
             android:id="@+id/action_fragment_main_to_fragment_login2"
+            app:launchSingleTop="true"
             app:destination="@id/fragment_login"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slite_out_left"/>

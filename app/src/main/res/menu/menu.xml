@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_main"
+        android:icon="@mipmap/home_selected"
+        android:title="home"/>
+    <item
+        android:id="@+id/fragment_register"
+        android:icon="@mipmap/main_selected"
+        android:title="main"/>
+    <item
+        android:id="@+id/fragment_login"
+        android:icon="@mipmap/mine_selected"
+        android:title="mine"/>
+</menu>
