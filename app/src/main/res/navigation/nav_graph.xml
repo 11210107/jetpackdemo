@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragment_main"
+    android:id="@+id/nav_graph">
+    <fragment
+        android:id="@+id/fragment_login"
+        android:name="com.wz.jetpackdemo.ui.user.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_register2"
+            app:destination="@id/fragment_register"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left"/>
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_main2"
+            app:destination="@id/fragment_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_register"
+        android:name="com.wz.jetpackdemo.ui.user.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_fragment_register_to_fragment_main"
+            app:popUpTo="@id/fragment_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.wz.jetpackdemo.ui.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_login2"
+            app:destination="@id/fragment_login"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left"/>
+        <argument
+            android:name="token"
+            android:defaultValue=""
+            app:argType="string"/>
+        <argument
+            android:name="id"
+            android:defaultValue="-1"
+            app:argType="integer"/>
+    </fragment>
+</navigation>
