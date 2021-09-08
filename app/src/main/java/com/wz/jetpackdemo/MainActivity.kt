@@ -8,7 +8,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wz.jetpackdemo.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

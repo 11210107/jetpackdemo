@@ -2,40 +2,13 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/fragment_main"
+    app:startDestination="@id/fragment_home"
     android:id="@+id/nav_graph">
     <fragment
-        android:id="@+id/fragment_login"
-        android:name="com.wz.jetpackdemo.ui.user.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/login_fragment" >
-       
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_register"
-        android:name="com.wz.jetpackdemo.ui.user.RegisterFragment"
-        android:label="fragment_register"
-        tools:layout="@layout/register_fragment" >
-        <action
-            android:id="@+id/action_fragment_register_to_fragment_main"
-            app:popUpTo="@id/fragment_main"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slite_out_left"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/fragment_main"
-        android:name="com.wz.jetpackdemo.ui.main.MainFragment"
+        android:id="@+id/fragment_home"
+        android:name="com.wz.jetpackdemo.ui.main.HomeFragment"
         android:label="fragment_main"
-        tools:layout="@layout/main_fragment" >
-        <action
-            android:id="@+id/action_fragment_main_to_fragment_login2"
-            app:launchSingleTop="true"
-            app:destination="@id/fragment_login"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slite_out_left"/>
+        tools:layout="@layout/home_fragment" >
         <argument
             android:name="token"
             android:defaultValue=""
@@ -44,5 +17,41 @@
             android:name="id"
             android:defaultValue="-1"
             app:argType="integer"/>
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_main"
+            app:launchSingleTop="true"
+            app:destination="@id/fragment_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_mine"
+            app:launchSingleTop="true"
+            app:destination="@id/fragment_mine"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slite_out_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.wz.jetpackdemo.ui.user.MainFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/main_fragment">
+
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_mine"
+            app:destination="@id/fragment_mine" />
+    </fragment>
+
+    <fragment android:id="@+id/fragment_mine"
+        android:name="com.wz.jetpackdemo.ui.user.MineFragment"
+        android:label="fragment_mine"
+        tools:layout="@layout/mine_fragment">
+
+        <action
+            android:id="@+id/action_fragment_mine_to_fragment_main"
+            app:destination="@id/fragment_main" />
+        <action
+            android:id="@+id/action_fragment_mine_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
 </navigation>
