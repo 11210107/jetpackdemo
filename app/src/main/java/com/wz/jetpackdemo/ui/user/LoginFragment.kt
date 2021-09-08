@@ -22,13 +22,13 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<TextView>(R.id.tv_login_register).setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_fragment_login_to_fragment_register2)
+//            Navigation.findNavController(it).navigate(R.id.action_fragment_login_to_fragment_register2)
         }
 
         view.findViewById<TextView>(R.id.tv_login_main).setOnClickListener {
-            val action =
-                LoginFragmentDirections.actionFragmentLoginToFragmentMain2("token", 10001)
-            Navigation.findNavController(it).navigate(action)
+//            val action =
+//                LoginFragmentDirections.actionFragmentLoginToFragmentMain2("token", 10001)
+//            Navigation.findNavController(it).navigate(action)
         }
     }
 }

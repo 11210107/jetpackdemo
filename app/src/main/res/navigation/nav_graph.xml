@@ -9,16 +9,7 @@
         android:name="com.wz.jetpackdemo.ui.user.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/login_fragment" >
-        <action
-            android:id="@+id/action_fragment_login_to_fragment_register2"
-            app:destination="@id/fragment_register"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slite_out_left"/>
-        <action
-            android:id="@+id/action_fragment_login_to_fragment_main2"
-            app:destination="@id/fragment_main"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slite_out_left"/>
+       
 
     </fragment>
 
