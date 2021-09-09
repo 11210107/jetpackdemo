@@ -12,8 +12,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.wz.jetpackdemo.R
+import com.wz.jetpackdemo.lifecycle.observer.HomeLifecycleObserver
 
 class HomeFragment : Fragment() {
+    val TAG = HomeFragment::class.java.simpleName
     val args: HomeFragmentArgs by navArgs()
     lateinit var userinfo: TextView
 
@@ -22,7 +24,11 @@ class HomeFragment : Fragment() {
     }
 
     private lateinit var viewModel: HomeViewModel
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate")
+        lifecycle.addObserver(HomeLifecycleObserver())
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.home_fragment, container, false)
@@ -44,7 +50,12 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        Log.e("MainFragment:", "token:${args.token} id:${args.id}")
+        Log.e(TAG, "onResume token:${args.token} id:${args.id}")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e(TAG, "onPause")
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
