@@ -3,21 +3,17 @@ package com.wz.jetpackdemo.ui.main
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.wz.jetpackdemo.R
+import com.wz.jetpackdemo.databinding.HomeFragmentBinding
 import com.wz.jetpackdemo.lifecycle.observer.HomeLifecycleObserver
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseViewBindingFragment<HomeFragmentBinding>() {
     val TAG = HomeFragment::class.java.simpleName
     val args: HomeFragmentArgs by navArgs()
-    lateinit var userinfo: TextView
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -28,19 +24,16 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.e(TAG, "onCreate")
         lifecycle.addObserver(HomeLifecycleObserver())
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.home_fragment, container, false)
+        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+//        viewModel.userLiveData.value = User("onCreate", 0)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userinfo = view.findViewById<TextView>(R.id.tv_userinfo)
-        userinfo.setOnClickListener {
+        binding.tvUserinfo.setOnClickListener {
             viewModel.getUserInfo()
         }
-        view.findViewById<TextView>(R.id.message).setOnClickListener {
+        binding.message.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("key", "value")
             Navigation.findNavController(it)
@@ -48,21 +41,40 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.e(TAG, "onStart")
+//        viewModel.userLiveData.value = User("onStart", 1)
+    }
     override fun onResume() {
         super.onResume()
         Log.e(TAG, "onResume token:${args.token} id:${args.id}")
+//        viewModel.userLiveData.value = User("onResume", 2)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
+            Log.e(TAG,"userLiveData:$it")
+            binding.tvUserinfo.text = it.toString()
+        })
     }
 
     override fun onPause() {
         super.onPause()
         Log.e(TAG, "onPause")
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-        viewModel.userLiveData.observe(viewLifecycleOwner, Observer {
-            userinfo.text = it.toString()
-        })
+//        viewModel.userLiveData.value = User("onPause", 3)
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.e(TAG, "onStop")
+//        viewModel.userLiveData.value = User("onStop", 4)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e(TAG, "onDestroy")
+//        viewModel.userLiveData.value = User("onDestroy", 5)
+    }
 }

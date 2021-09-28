@@ -8,24 +8,20 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.wz.jetpackdemo.databinding.MainActivityBinding
+import com.wz.jetpackdemo.ui.BaseViewBindingActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-//        if (savedInstanceState == null) {
-//            supportFragmentManager.beginTransaction()
-//                    .replace(R.id.container, MainFragment.newInstance())
-//                    .commitNow()
-//        }
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setUpBottom(navHostFragment.navController)
     }
-
     private fun setUpBottom(navController: NavController) {
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        val bottomNav = binding.bottomNavigation
         bottomNav.setupWithNavController(navController)
         bottomNav.setOnNavigationItemSelectedListener {item: MenuItem ->
             val options = NavOptions.Builder()
@@ -40,6 +36,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun getViewBinding()= MainActivityBinding.inflate(layoutInflater)
 
 
 }
