@@ -1,0 +1,7 @@
+syntax = "proto3";
+option java_package ="com.wz.protobuf";
+option java_outer_classname ="UserProto";
+message User{
+  int32 age = 1;
+  string name = 2;
+}
