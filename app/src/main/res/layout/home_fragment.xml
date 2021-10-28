@@ -17,13 +17,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/edit_query"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="20dp"
+        android:hint=""
+        app:layout_constraintTop_toBottomOf="@id/tv_userinfo" />
+
     <TextView
         android:id="@+id/tv_userinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HomeFragment_Login"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@id/message"
+        android:layout_marginTop="20dp"
+        android:text="HomeFragment_Login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

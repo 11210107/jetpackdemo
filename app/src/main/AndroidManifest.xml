@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wz.jetpackdemo">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,13 +11,45 @@
         android:supportsRtl="true"
         android:name=".JetpackApplication"
         android:theme="@style/Theme.Jetpackdemo">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.user.UserDetailActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.wz.task1"/>
+        <activity android:name=".ui.StockActivity"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.wz.task1"
+            android:process="com.wz.jetpackdemo.remote">
+            <intent-filter>
+                <action android:name="com.wz.jetpackdemo.a" />
+                <action android:name="com.wz.jetpackdemo.b" />
+                <category android:name="com.wz.jetpackdemo.c"/>
+                <category android:name="com.wz.jetpackdemo.d"/>
+                <category android:name="android.intent.category.DEFAULT" />
+
+<!--                <data android:scheme="content" android:mimeType="text/plain" />-->
+<!--                <data android:scheme="file" android:mimeType="image/*" />-->
+                <data android:mimeType="image/*" />
+                <data android:scheme="http" android:mimeType="video/mpeg" />
+<!--                <data android:scheme="http" android:mimeType="audio/mpeg" />-->
+            </intent-filter>
+        </activity>
+
+        <service android:name=".AIDLService"
+            android:process=":aidl">
+            <intent-filter>
+                <action android:name="com.wz.jetpackdemo.aidl"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

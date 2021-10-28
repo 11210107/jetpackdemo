@@ -1,34 +1,29 @@
 package com.wz.jetpackdemo.ui.user
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.wz.jetpackdemo.R
+import com.wz.jetpackdemo.databinding.MineFragmentBinding
+import com.wz.jetpackdemo.ui.main.BaseViewBindingFragment
 
-class MineFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.mine_fragment, container, false)
+class MineFragment : BaseViewBindingFragment<MineFragmentBinding>() {
 
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.tv_login_register).setOnClickListener {
+        binding.tvLoginRegister.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_fragment_mine_to_fragment_main)
         }
 
-        view.findViewById<TextView>(R.id.tv_login_main).setOnClickListener {
+        binding.tvLoginMain.setOnClickListener {
             val action =
                 MineFragmentDirections.actionFragmentMineToFragmentHome("token", 10001)
             Navigation.findNavController(it).navigate(action)
+        }
+        binding.tvUserDetail.setOnClickListener {
+            startActivity(Intent(activity,UserDetailActivity::class.java))
         }
     }
 }
