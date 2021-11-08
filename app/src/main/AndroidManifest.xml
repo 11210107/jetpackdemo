@@ -71,6 +71,9 @@
         <service android:name=".TCPServerService"
             android:process=":socket"/>
 
+        <service android:name=".BinderPoolService"
+            android:process=":binderpool"/>
+
         <provider
             android:authorities="com.wz.jetpackdemo.provider"
             android:name=".contentprovider.BookProvider"

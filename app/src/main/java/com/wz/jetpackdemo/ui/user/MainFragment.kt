@@ -7,20 +7,24 @@ import android.os.*
 import android.util.Log
 import android.view.View
 import androidx.navigation.Navigation
-import com.wz.jetpackdemo.AIDLService
-import com.wz.jetpackdemo.IBookManager
-import com.wz.jetpackdemo.MessengerService
-import com.wz.jetpackdemo.R
+import com.wz.jetpackdemo.*
+import com.wz.jetpackdemo.aidlimpl.BinderPool
+import com.wz.jetpackdemo.aidlimpl.SecurityCenterImpl
 import com.wz.jetpackdemo.databinding.MainFragmentBinding
 import com.wz.jetpackdemo.model.Book
 import com.wz.jetpackdemo.model.INewBookArraivedListener
 import com.wz.jetpackdemo.model.User
 import com.wz.jetpackdemo.ui.main.BaseViewBindingFragment
 
+import com.wz.jetpackdemo.ISecurityCenter
+import com.wz.jetpackdemo.aidlimpl.ComputeImpl
+
+
 class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
 
     val TAG = MainFragment::class.java.simpleName
     var iBookManager: IBookManager? = null
+    var mSecurityCenter:ISecurityCenter? = null
     lateinit var mService: Messenger
     var serviceConnectionFlag = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,6 +87,23 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         binding.tvSocket.setOnClickListener {
             Navigation.findNavController(it)
                 .navigate(R.id.action_fragment_main_to_fragment_chat)
+        }
+        binding.tvBinderPool.setOnClickListener {
+            Thread{
+                val binderPool = BinderPool.getInstance(requireContext())
+                val securityBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER)
+                mSecurityCenter = ISecurityCenter.Stub.asInterface(securityBinder) as ISecurityCenter
+                val msg = "hello world android!"
+                val password = mSecurityCenter?.encrypt(msg)
+                Log.e(TAG, "encrypt: $password")
+                Log.e(TAG, "decrypt: ${mSecurityCenter?.decrypt(password)}")
+                val computeBinder = binderPool.queryBinder(BinderPool.BINDER_COMPUTE)
+                val mCompute = ICompute.Stub.asInterface(computeBinder) as ICompute
+                val result = mCompute.add(1, 1)
+                Log.e(TAG, "1+1=$result")
+            }.start()
+
+
         }
     }
 
