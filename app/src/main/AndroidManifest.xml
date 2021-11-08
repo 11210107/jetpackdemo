@@ -68,6 +68,9 @@
             android:name=".MessengerService"
             android:process=":messenger" />
 
+        <service android:name=".TCPServerService"
+            android:process=":socket"/>
+
         <provider
             android:authorities="com.wz.jetpackdemo.provider"
             android:name=".contentprovider.BookProvider"

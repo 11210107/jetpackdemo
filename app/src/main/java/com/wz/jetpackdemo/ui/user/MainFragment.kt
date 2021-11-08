@@ -6,9 +6,11 @@ import android.net.Uri
 import android.os.*
 import android.util.Log
 import android.view.View
+import androidx.navigation.Navigation
 import com.wz.jetpackdemo.AIDLService
 import com.wz.jetpackdemo.IBookManager
 import com.wz.jetpackdemo.MessengerService
+import com.wz.jetpackdemo.R
 import com.wz.jetpackdemo.databinding.MainFragmentBinding
 import com.wz.jetpackdemo.model.Book
 import com.wz.jetpackdemo.model.INewBookArraivedListener
@@ -77,6 +79,10 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
                 Log.e(TAG, "query user: $user")
             }
             userCursor.close()
+        }
+        binding.tvSocket.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_fragment_main_to_fragment_chat)
         }
     }
 

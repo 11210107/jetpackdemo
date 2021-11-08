@@ -40,6 +40,12 @@
         <action
             android:id="@+id/action_fragment_main_to_fragment_mine"
             app:destination="@id/fragment_mine" />
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_mine2"
+            app:destination="@id/fragment_mine" />
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_chat"
+            app:destination="@id/fragment_chat" />
     </fragment>
 
     <fragment android:id="@+id/fragment_mine"
@@ -54,4 +60,14 @@
             android:id="@+id/action_fragment_mine_to_fragment_home"
             app:destination="@id/fragment_home" />
     </fragment>
+
+    <fragment
+        android:id="@+id/fragment_chat"
+        android:name="com.wz.jetpackdemo.ui.SocketChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/socket_chat_fragment">
+
+
+    </fragment>
+
 </navigation>
