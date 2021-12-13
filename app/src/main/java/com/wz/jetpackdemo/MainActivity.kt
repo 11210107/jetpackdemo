@@ -2,6 +2,7 @@ package com.wz.jetpackdemo
 
 import android.Manifest
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -32,6 +33,10 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
                     Toast.makeText(this, "These permissions are denied: $deniedList", Toast.LENGTH_LONG).show()
                 }
             }
+        val marsWidgetProvider = MarsWidgetProvider()
+        val intentFilter = IntentFilter()
+        intentFilter.addAction("com.wz.jetpackdemo.action")
+        intentFilter.addAction("android.appwidget.action.APPWIDGET_UPDATE")
     }
     private fun setUpBottom(navController: NavController) {
         val bottomNav = binding.bottomNavigation

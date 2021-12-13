@@ -21,7 +21,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
-            android:launchMode="standard">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -79,7 +79,15 @@
             android:name=".contentprovider.BookProvider"
             android:permission="com.wz.PROVIDER"
             android:process=":provider"/>
-
+        <receiver android:name=".MarsWidgetProvider">
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_provider_info" />
+            <intent-filter>
+                <action android:name="com.wz.jetpackdemo.action" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

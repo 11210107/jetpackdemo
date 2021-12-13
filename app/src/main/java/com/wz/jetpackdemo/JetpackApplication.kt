@@ -25,7 +25,6 @@ class JetpackApplication : Application() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
         val processName = getProcessName(this)
         Log.e(TAG, "processName: $processName")
-
     }
 
     class ApplicationLifecycleObserver : LifecycleObserver {

@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_fragment_main_to_fragment_chat"
             app:destination="@id/fragment_chat" />
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_custom_view"
+            app:destination="@id/fragment_custom_view" />
     </fragment>
 
     <fragment android:id="@+id/fragment_mine"
@@ -67,6 +70,14 @@
         android:label="fragment_chat"
         tools:layout="@layout/socket_chat_fragment">
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_custom_view"
+        android:name="com.wz.jetpackdemo.ui.CustomViewFragment"
+        android:label="fragment_custom_view"
+        tools:layout="@layout/custom_view_fragment">
 
     </fragment>
 

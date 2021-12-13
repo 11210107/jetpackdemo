@@ -1,0 +1,21 @@
+syntax = "proto3";
+option java_package = "com.wz.jetpackdemo";
+message FinderZero{
+     repeated FinderOne fields = 1;
+}
+message FinderOne{
+    repeated FinderTwo field1 = 1;
+}
+message FinderTwo{
+   int32 field1 = 1;
+   int64 field2 = 2;
+   repeated FinderThree field3 = 3;
+}
+message FinderThree{
+  int64 field1 = 1;
+  repeated FinderFour field4 = 4;
+}
+
+message FinderFour{
+  string nickname = 1;
+}

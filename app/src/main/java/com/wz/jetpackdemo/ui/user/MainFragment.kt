@@ -9,7 +9,6 @@ import android.view.View
 import androidx.navigation.Navigation
 import com.wz.jetpackdemo.*
 import com.wz.jetpackdemo.aidlimpl.BinderPool
-import com.wz.jetpackdemo.aidlimpl.SecurityCenterImpl
 import com.wz.jetpackdemo.databinding.MainFragmentBinding
 import com.wz.jetpackdemo.model.Book
 import com.wz.jetpackdemo.model.INewBookArraivedListener
@@ -17,7 +16,6 @@ import com.wz.jetpackdemo.model.User
 import com.wz.jetpackdemo.ui.main.BaseViewBindingFragment
 
 import com.wz.jetpackdemo.ISecurityCenter
-import com.wz.jetpackdemo.aidlimpl.ComputeImpl
 
 
 class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
@@ -49,6 +47,7 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         binding.tvBindService.setOnClickListener {
             val intent = Intent(context, AIDLService::class.java)
             context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+
         }
         binding.tvAddBook.setOnClickListener {
             val book = Book(2, "App Develop Art")
@@ -104,6 +103,11 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
             }.start()
 
 
+        }
+
+        binding.tvCustomView.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_fragment_main_to_fragment_custom_view)
         }
     }
 

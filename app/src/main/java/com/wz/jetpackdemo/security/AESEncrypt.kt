@@ -13,6 +13,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.Mac
 import javax.crypto.SecretKeyFactory
+import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.PBEKeySpec
 import javax.crypto.spec.PBEParameterSpec
 import javax.crypto.spec.SecretKeySpec
@@ -62,6 +63,32 @@ object AESEncrypt {
         cipher.init(Cipher.ENCRYPT_MODE, sKey, pbeps)
         return cipher.doFinal(data)
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun cbcEncrypeWithIv(key: String, data: ByteArray):ByteArray? {
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val secretKeySpec = SecretKeySpec(key.toByteArray(Charsets.UTF_8), "AES")
+        val instanceStrong = SecureRandom.getInstanceStrong()
+        val generateSeed = instanceStrong.generateSeed(16)
+        val ivParameterSpec = IvParameterSpec(generateSeed)
+        cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec,ivParameterSpec)
+        val doFinal = cipher.doFinal(data)
+        return join(generateSeed,doFinal)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun cbcDecrypeWithIv(key: String, input: ByteArray): ByteArray? {
+        val iv = ByteArray(16)
+        val data = ByteArray(input.size - 16)
+        System.arraycopy(input, 0, iv, 0, 16)
+        System.arraycopy(input, 16, data, 0, data.size)
+        val cipher = Cipher.getInstance("AES/CBC/PKCS5Padding")
+        val secretKeySpec = SecretKeySpec(key.toByteArray(Charsets.UTF_8), "AES")
+        val ivParameterSpec = IvParameterSpec(iv)
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
+        return cipher.doFinal(data)
+    }
+
     fun join(bs1: ByteArray, bs2: ByteArray): ByteArray? {
         val r = ByteArray(bs1.size + bs2.size)
         System.arraycopy(bs1, 0, r, 0, bs1.size)
