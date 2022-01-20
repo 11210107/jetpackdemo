@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package com.rjhy.app.pk.bean;
+
+option java_package = "com.rjhy.app.pk.bean";
+option java_outer_classname = "PkResultProto";
+
+message PkResultBean {
+     repeated Pk appIds = 1;
+}
+
+message Pk{
+     string pkName = 1;
+
+     string ppName = 2;
+
+     string addr = 3;
+}

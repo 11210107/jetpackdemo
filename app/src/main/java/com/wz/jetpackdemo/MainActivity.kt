@@ -25,7 +25,7 @@ class MainActivity : BaseViewBindingActivity<MainActivityBinding>() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         setUpBottom(navHostFragment.navController)
         PermissionX.init(this)
-            .permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            .permissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.SYSTEM_ALERT_WINDOW)
             .request { allGranted, grantedList, deniedList ->
                 if (allGranted) {
                     Toast.makeText(this, "All permissions are granted", Toast.LENGTH_LONG).show()

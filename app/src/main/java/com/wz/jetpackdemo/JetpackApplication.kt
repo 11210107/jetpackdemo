@@ -12,6 +12,7 @@ import android.app.ActivityManager
 import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import android.os.Process
+import com.tencent.mmkv.MMKV
 
 
 class JetpackApplication : Application() {
@@ -24,6 +25,9 @@ class JetpackApplication : Application() {
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
         val processName = getProcessName(this)
+
+        val rootDir: String = MMKV.initialize(this)
+        Log.e(TAG, "mmkv root: $rootDir")
         Log.e(TAG, "processName: $processName")
     }
 

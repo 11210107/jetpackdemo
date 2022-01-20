@@ -109,6 +109,11 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
             Navigation.findNavController(it)
                 .navigate(R.id.action_fragment_main_to_fragment_custom_view)
         }
+
+        binding.tvDrawable.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_fragment_main_to_fragment_drawable)
+        }
     }
 
     val mOnINewBookArraivedListener = object :INewBookArraivedListener.Stub(){
@@ -137,7 +142,6 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         override fun onServiceDisconnected(name: ComponentName?) {
             Log.e(TAG, "service disconnected thread:${Thread.currentThread().name}")
             serviceConnectionFlag = false
-
         }
 
     }

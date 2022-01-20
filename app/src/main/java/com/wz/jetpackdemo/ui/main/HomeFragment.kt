@@ -9,12 +9,14 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
+import com.rjhy.app.pk.bean.PkResultProto
 import com.wz.jetpackdemo.R
 import com.wz.jetpackdemo.databinding.HomeFragmentBinding
 import com.wz.jetpackdemo.lifecycle.observer.HomeLifecycleObserver
 import com.wz.jetpackdemo.model.User
 import com.wz.jetpackdemo.repository.UserRepository
 import java.io.*
+import java.nio.charset.Charset
 
 class HomeFragment : BaseViewBindingFragment<HomeFragmentBinding>() {
     val TAG = HomeFragment::class.java.simpleName
@@ -55,6 +57,13 @@ class HomeFragment : BaseViewBindingFragment<HomeFragmentBinding>() {
             val wangzhen = objectInputStream.readObject() as User
             objectInputStream.close()
             Log.e(TAG, "wangzhen:$wangzhen isSame:${wangzhen === user}")
+            val newBuilder = PkResultProto.Pk.newBuilder()
+            newBuilder.pkName = "dddd"
+            newBuilder.ppName = "eeee"
+            newBuilder.build()
+            val build = PkResultProto.PkResultBean.newBuilder().addAppIds(newBuilder).build()
+            val byteArray = build.toByteArray()
+            val string = String(byteArray, Charsets.UTF_8)
 
         }
         binding.message.setOnClickListener {

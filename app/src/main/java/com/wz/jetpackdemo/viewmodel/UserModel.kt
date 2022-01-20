@@ -7,11 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.wz.jetpackdemo.model.User
+import com.wz.jetpackdemo.repository.DataRepository
 import kotlinx.coroutines.*
 import java.util.function.Function
 
 class UserModel : ViewModel() {
     val userLiveData= MutableLiveData<User>()
+    var isFirstLaunch by DataRepository::isFirstLaunch
 
     val userNameLiveData: LiveData<String> = Transformations.map(userLiveData){
         user -> "${user.name}"

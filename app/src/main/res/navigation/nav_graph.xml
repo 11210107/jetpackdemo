@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_fragment_main_to_fragment_custom_view"
             app:destination="@id/fragment_custom_view" />
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_drawable"
+            app:destination="@id/fragment_drawable" />
     </fragment>
 
     <fragment android:id="@+id/fragment_mine"
@@ -78,6 +81,14 @@
         android:name="com.wz.jetpackdemo.ui.CustomViewFragment"
         android:label="fragment_custom_view"
         tools:layout="@layout/custom_view_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_drawable"
+        android:name="com.wz.jetpackdemo.ui.DrawableFragment"
+        android:label="fragment_drawable"
+        tools:layout="@layout/drawable_fragment">
 
     </fragment>
 

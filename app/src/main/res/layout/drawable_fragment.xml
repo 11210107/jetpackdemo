@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:id="@+id/iv_oval"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:background="@drawable/transition_background"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/iv_loading"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:indeterminateDrawable="@drawable/loading_anim"
+        app:layout_constraintLeft_toRightOf="@+id/iv_oval"
+        app:layout_constraintTop_toTopOf="@+id/iv_oval"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_oval"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

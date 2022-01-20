@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+/**
+    视频号创作者protobuf
+ */
+message VideoNumberObject {
+    repeated CreatorObject creator_objects = 1;
+}
+
+message CreatorObject {
+    repeated CreatorVideoObject creator_video_objects = 1;
+}
+
+message CreatorVideoObject {
+    repeated FinderObject finder_objects = 3;
+}
+
+message FinderObject {
+    string nickname = 2;
+    string username = 3;
+    int64 stickyTime = 54;
+    int32 adFlag = 70;
+    int32 commentClose = 19;
+    int32 commentCount = 15;
+    int32 createtime = 5;
+    string debugMessage = 50;
+    int32  deletetime = 18;
+    int64 displayId = 13;
+    string displayidDiscarded = 11;
+    int32 event_status_flag = 61;
+    int32 favCount = 38;
+    int32 favFlag = 39;
+    int32 foldedFlag = 40;
+    int32 followCount = 75;
+    int32 follow_feed_count = 60;
+    int32 forwardCount = 9;
+    int32 forward_style = 44;
+    int32 friendLikeCount = 24;
+    int32 friend_fav_count = 82;
+    int32 func_flag = 83;
+    int32 incFriendLikeCount = 49;
+    string internal_feedback_url = 78;
+    int32 is_poi_same_city = 62;
+    int32 likeCount = 14;
+    int32 likeFlag = 6;
+    int32 mentionedListSelected = 63;
+    int32 msgEventFlag = 47;
+    string msgId = 48;
+    string objectNonceId = 25;
+    int32 objectStatus = 27;
+    int32 objectType = 57;
+    int32 orgRecommendType = 32;
+    int32 originalFlag = 29;
+    int32 permissionFlag = 52;
+    string posTriggerConfig = 45;
+    int32 preview_flag = 77;
+    int32 privateFlag = 46;
+    int32 readCount = 17;
+    string  recommendReason = 16;
+    int32 recommendReasonType = 42;
+    int32 recommendType = 23;
+    int64 refObjectFlag = 20;
+    int64 refObjectId = 21;
+    string refObjectNonceId = 26;
+    int32 ringtone_count = 80;
+    int32 secondaryShowFlag = 30;
+    string sendShareFavWording = 28;
+    string sessionBuffer = 34;
+    string tipsWording = 31;
+    int32  urlValidDuration = 43;
+    string verify_info_buf = 64;
+    int32 warnFlag = 35;
+    string warnWording = 36;
+    int32 wxStatusPermissionFlag = 66;
+    string wx_status_icon_id = 81;
+    int32 wx_status_ref_count = 65;
+    string wxa_game_export_id = 79;
+    int64 id = 1;
+    repeated FinderCommentInfo commentList = 8;
+    repeated FinderCommentInfo friendCommentList = 68;
+    repeated FinderCommentInfo likeList = 7;
+    repeated FinderObjectDesc objectDesc = 4;
+    repeated string recommenderList = 12;
+}
+
+message FinderObjectDesc{
+    string description = 1;
+    repeated FinderMedia media = 2;
+}
+
+message FinderMedia{
+    string url = 1;
+    string full_thumb_url = 21;
+    string full_thumb_url_token = 22;
+}
+
+message FinderCommentInfo {
+    repeated FinderContact author_contact = 28;
+    int32  blacklist_flag = 19;
+    string client_id = 22;
+    int64 commentId = 4;
+    string content = 3;
+    int32 continueFlag = 17;
+    int64 createtime = 9;
+    int32 deleteFlag = 6;
+    int32 displayFlag = 18;
+    int64 displayid = 14;
+    string displayidDiscarded = 11;
+    int32 expandCommentCount = 15;
+    int32 extFlag = 25;
+    string  headUrl = 7;
+    repeated FinderCommentInfo levelTwoComment = 8;
+    int32 likeCount = 13;
+    int32 likeFlag = 12;
+    string nickname = 2;
+    int32 replyBlacklistFlag = 24;
+    int32 replyCommentId = 5;
+    int32 replyNickname = 10;
+    string reply_content = 20;
+    string reply_username = 21;
+    int32 unreadFlag = 26;
+    int32 upContinueFlag = 23;
+    string username = 1;
+}
+
+message FinderContact {
+    repeated FinderAuthInfo authInfo = 8;
+    int32 coverEntranceFlag = 32;
+    string coverImgUrl = 9;
+    string coverUrl = 31;
+    int32 extFlag = 11;
+    int32 fans_count = 24;
+    int32 feedCount = 27;
+    int32 followFlag = 6;
+    int32 followTime = 7;
+    int32 foreign_user_flag = 19;
+    int32 friend_follow_count = 23;
+    string headUrl = 3;
+    string liveCoverImgUrl = 18;
+    int32 liveStatus = 15;
+    string loggingout_wording = 21;
+    string nickname = 2;
+    int32 one_time_flag = 36;
+    int32 originalEntranceFlag = 17;
+    int32 originalFlag = 13;
+    int64 seq = 4;
+    int32 signature = 5;
+    int32 spamStatus = 10;
+    int32 user_flag = 35;
+    int32 user_mode = 28;
+    string username = 1;
+    string vestNickname = 26;
+    string wx_username_v5 = 25;
+}
+
+message FinderAuthInfo {
+    string appName = 6;
+    int32 authIconType = 2;
+    string authIconUrl = 7;
+    string authProfession = 3;
+    int32 auth_verify_identity = 9;
+    int32 customer_type = 8;
+    string detailLink = 5;
+    string realName = 1;
+    int32 verify_status = 10;
+}
