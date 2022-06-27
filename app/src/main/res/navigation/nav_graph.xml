@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_fragment_main_to_fragment_drawable"
             app:destination="@id/fragment_drawable" />
+        <action
+            android:id="@+id/action_fragment_main_to_fragment_nested_srcoll"
+            app:destination="@id/fragment_nested_scroll" />
     </fragment>
 
     <fragment android:id="@+id/fragment_mine"
@@ -89,6 +92,14 @@
         android:name="com.wz.jetpackdemo.ui.DrawableFragment"
         android:label="fragment_drawable"
         tools:layout="@layout/drawable_fragment">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_nested_scroll"
+        android:name="com.wz.jetpackdemo.ui.NestedScrollFragment"
+        android:label="fragment_nested_scroll"
+        tools:layout="@layout/nested_scroll_fragment">
 
     </fragment>
 

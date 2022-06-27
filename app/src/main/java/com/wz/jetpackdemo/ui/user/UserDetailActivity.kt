@@ -1,6 +1,7 @@
 package com.wz.jetpackdemo.ui.user
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +23,6 @@ class UserDetailActivity: BaseViewBindingActivity<UserDetailActivityBinding>() {
 
         Log.e(TAG, "isFirstLaunch:${userModel.isFirstLaunch}")
         userModel.isFirstLaunch = false
-
     }
 
     override fun getViewBinding()=UserDetailActivityBinding.inflate(layoutInflater)

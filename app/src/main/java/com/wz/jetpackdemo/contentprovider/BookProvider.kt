@@ -8,8 +8,7 @@ import android.net.Uri
 import android.util.Log
 import com.wz.jetpackdemo.database.DbOpenHelper
 import android.database.sqlite.SQLiteDatabase
-
-
+import com.tencent.mmkv.MMKV
 
 
 class BookProvider : ContentProvider() {
@@ -45,7 +44,7 @@ class BookProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         Log.e(TAG, "onCreate,current thread: ${Thread.currentThread().name}")
         initProviderData()
-
+        MMKV.initialize(context)
         return true
     }
 

@@ -76,5 +76,5 @@ class DrawableFragment : BaseViewBindingFragment<DrawableFragmentBinding>() {
         dialog.show(parentFragmentManager,"dialog")
         name = "wangzhen"
     }
-
+    
 }

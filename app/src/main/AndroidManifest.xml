@@ -78,8 +78,8 @@
         <provider
             android:authorities="com.wz.jetpackdemo.provider"
             android:name=".contentprovider.BookProvider"
-            android:permission="com.wz.PROVIDER"
-            android:process=":provider"/>
+
+            android:permission="com.wz.PROVIDER"/>
         <receiver android:name=".MarsWidgetProvider">
             <meta-data
                 android:name="android.appwidget.provider"

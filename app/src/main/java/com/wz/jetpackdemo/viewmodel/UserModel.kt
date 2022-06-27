@@ -14,6 +14,8 @@ import java.util.function.Function
 class UserModel : ViewModel() {
     val userLiveData= MutableLiveData<User>()
     var isFirstLaunch by DataRepository::isFirstLaunch
+    var age by DataRepository::count
+    var name by DataRepository::title
 
     val userNameLiveData: LiveData<String> = Transformations.map(userLiveData){
         user -> "${user.name}"

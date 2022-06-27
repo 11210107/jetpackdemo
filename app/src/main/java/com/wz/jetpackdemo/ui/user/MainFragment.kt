@@ -5,7 +5,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.*
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.wz.jetpackdemo.*
 import com.wz.jetpackdemo.aidlimpl.BinderPool
@@ -16,33 +19,46 @@ import com.wz.jetpackdemo.model.User
 import com.wz.jetpackdemo.ui.main.BaseViewBindingFragment
 
 import com.wz.jetpackdemo.ISecurityCenter
+import com.wz.jetpackdemo.util.SharedPreferencesUtils
+import com.wz.jetpackdemo.viewmodel.UserModel
 
 
 class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
 
     val TAG = MainFragment::class.java.simpleName
     var iBookManager: IBookManager? = null
-    var mSecurityCenter:ISecurityCenter? = null
+    var mSecurityCenter: ISecurityCenter? = null
     lateinit var mService: Messenger
     var serviceConnectionFlag = false
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.e(TAG, "onAttach")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.e(TAG, "onCreate")
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e(TAG, "onViewCreated")
         binding.tvMain.setOnClickListener {
 //            Navigation.findNavController(it)
 //                .navigate(R.id.action_fragment_register_to_fragment_main)
-           val intent = Intent()
-           intent.setAction("com.wz.jetpackdemo.b")
-           intent.addCategory("com.wz.jetpackdemo.c")
-           intent.setDataAndType(Uri.parse("http://abc"),"image/png")
-           val packageManager = activity?.packageManager
-           val queryIntentActivities =
-               packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+            val intent = Intent()
+            intent.setAction("com.wz.jetpackdemo.b")
+            intent.addCategory("com.wz.jetpackdemo.c")
+            intent.setDataAndType(Uri.parse("http://abc"), "image/png")
+            val packageManager = activity?.packageManager
+            val queryIntentActivities =
+                packageManager?.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
 
-           val resolveActivity =
-               packageManager?.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
-           if (resolveActivity != null) {
-               startActivity(intent)
-           }
+            val resolveActivity =
+                packageManager?.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+            if (resolveActivity != null) {
+                startActivity(intent)
+            }
         }
         binding.tvBindService.setOnClickListener {
             val intent = Intent(context, AIDLService::class.java)
@@ -64,18 +80,20 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         binding.tvProvider.setOnClickListener {
             val bookUri = Uri.parse("content://com.wz.jetpackdemo.provider/book")
             val contentValues = ContentValues()
-            contentValues.put("_id",6)
+            contentValues.put("_id", 6)
             contentValues.put("name", "程序设计的艺术")
             val contentResolver = activity?.contentResolver
             contentResolver?.insert(bookUri, contentValues)
-            val bookCursor = contentResolver?.query(bookUri, arrayOf("_id", "name"), null, null, null)
+            val bookCursor =
+                contentResolver?.query(bookUri, arrayOf("_id", "name"), null, null, null)
             while (bookCursor!!.moveToNext()) {
                 val book = Book(bookCursor.getInt(0), bookCursor.getString(1))
                 Log.e(TAG, "query book: $book")
             }
             bookCursor.close()
             val userUri = Uri.parse("content://com.wz.jetpackdemo.provider/user")
-            val userCursor = contentResolver.query(userUri, arrayOf("_id", "name", "sex"), null, null, null)
+            val userCursor =
+                contentResolver.query(userUri, arrayOf("_id", "name", "sex"), null, null, null)
             while (userCursor!!.moveToNext()) {
                 val user =
                     User(userCursor.getString(1), userCursor.getInt(2) + 27, userCursor.getInt(0))
@@ -88,10 +106,11 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
                 .navigate(R.id.action_fragment_main_to_fragment_chat)
         }
         binding.tvBinderPool.setOnClickListener {
-            Thread{
+            Thread {
                 val binderPool = BinderPool.getInstance(requireContext())
                 val securityBinder = binderPool.queryBinder(BinderPool.BINDER_SECURITY_CENTER)
-                mSecurityCenter = ISecurityCenter.Stub.asInterface(securityBinder) as ISecurityCenter
+                mSecurityCenter =
+                    ISecurityCenter.Stub.asInterface(securityBinder) as ISecurityCenter
                 val msg = "hello world android!"
                 val password = mSecurityCenter?.encrypt(msg)
                 Log.e(TAG, "encrypt: $password")
@@ -114,15 +133,34 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
             Navigation.findNavController(it)
                 .navigate(R.id.action_fragment_main_to_fragment_drawable)
         }
+
+        binding.tvNestedSrcoll.setOnClickListener {
+            Navigation.findNavController(it)
+                .navigate(R.id.action_fragment_main_to_fragment_nested_srcoll)
+        }
+        binding.tvMmkv.setOnClickListener {
+            val preTime = System.currentTimeMillis()
+            for (i in 1..1000) {
+                SharedPreferencesUtils.User.name = "Android 的键值对存储有没有最优解？wz$i"
+            }
+            val curTime = System.currentTimeMillis()
+            Log.e(TAG, "sp time:${curTime - preTime} age:${SharedPreferencesUtils.User.name}")
+            val userModel = ViewModelProvider(this).get(UserModel::class.java)
+            for (i in 1..1000) {
+                userModel.name = "Android 的键值对存储有没有最优解？wangzhen$i"
+            }
+            val mmkvTime = System.currentTimeMillis()
+            Log.e(TAG, "mmkv time:${mmkvTime - curTime} age:${userModel.name}")
+        }
     }
 
-    val mOnINewBookArraivedListener = object :INewBookArraivedListener.Stub(){
+    val mOnINewBookArraivedListener = object : INewBookArraivedListener.Stub() {
         override fun onNewBookArrived(newBook: Book?) {
             Log.e(TAG, "receive new book : $newBook")
         }
     }
 
-    private val serviceConnection = object :ServiceConnection{
+    private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             Log.e(TAG, "serviceConnected")
             serviceConnectionFlag = true
@@ -130,7 +168,7 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
             iBookManager?.asBinder()?.linkToDeath({
                 Log.e(TAG, "binderDied thread:${Thread.currentThread().name}")
 
-            },0)
+            }, 0)
             if (iBookManager != null) {
                 val bookList = iBookManager?.bookList
                 Log.e(TAG, "booklist: $bookList")
@@ -146,7 +184,7 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
 
     }
 
-    private val messengerServiceConnection = object :ServiceConnection{
+    private val messengerServiceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             Log.e("MessengerService", "messenger serviceConnected")
             mService = Messenger(service)
@@ -165,7 +203,7 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         }
 
     }
-    val mGetReplyMessenger = Messenger( MessengerHandler())
+    val mGetReplyMessenger = Messenger(MessengerHandler())
 
     private class MessengerHandler : Handler() {
         override fun handleMessage(msg: Message) {
@@ -179,8 +217,38 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
         }
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        Log.e(TAG, "onCreateView")
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e(TAG, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e(TAG, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e(TAG, "onStop")
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        Log.e(TAG, "onDestroy")
         if (serviceConnectionFlag) {
             context?.unbindService(serviceConnection)
         }

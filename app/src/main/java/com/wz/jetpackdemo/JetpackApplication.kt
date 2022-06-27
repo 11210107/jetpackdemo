@@ -13,19 +13,24 @@ import android.app.ActivityManager.RunningAppProcessInfo
 import android.content.Context
 import android.os.Process
 import com.tencent.mmkv.MMKV
+import kotlin.properties.Delegates
 
 
 class JetpackApplication : Application() {
+
     companion object {
         val TAG = JetpackApplication::class.java.simpleName
+        @JvmStatic
+        var context: Application by Delegates.notNull()
     }
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate() {
+        Log.e(TAG, "onCreate:")
         super.onCreate()
         ProcessLifecycleOwner.get().lifecycle.addObserver(ApplicationLifecycleObserver())
         val processName = getProcessName(this)
-
+        context = this
         val rootDir: String = MMKV.initialize(this)
         Log.e(TAG, "mmkv root: $rootDir")
         Log.e(TAG, "processName: $processName")
