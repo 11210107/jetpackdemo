@@ -156,13 +156,13 @@ class MainFragment : BaseViewBindingFragment<MainFragmentBinding>() {
 
     val mOnINewBookArraivedListener = object : INewBookArraivedListener.Stub() {
         override fun onNewBookArrived(newBook: Book?) {
-            Log.e(TAG, "receive new book : $newBook")
+            Log.e(TAG, "receive new book :Thread:${Thread.currentThread().name} $newBook")
         }
     }
 
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            Log.e(TAG, "serviceConnected")
+            Log.e(TAG, "serviceConnected Thread:${Thread.currentThread().name}")
             serviceConnectionFlag = true
             iBookManager = IBookManager.Stub.asInterface(service)
             iBookManager?.asBinder()?.linkToDeath({
